@@ -14,7 +14,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 	const
 		TABLE_NAME = 'users',
 		COLUMN_ID = 'id',
-		COLUMN_NAME = 'username',
+		COLUMN_NAME = 'email',
 		COLUMN_PASSWORD_HASH = 'password',
 		COLUMN_ROLE = 'role';
 
@@ -39,7 +39,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 		list($username, $password) = $credentials;
 
 		$row = $this->database->table(self::TABLE_NAME)->where(self::COLUMN_NAME, $username)->fetch();
-
+		
 		if (!$row) {
 			throw new Nette\Security\AuthenticationException('The username is incorrect.', self::IDENTITY_NOT_FOUND);
 

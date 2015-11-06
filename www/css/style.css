@@ -1,12 +1,140 @@
-body {
-	font-size: 15px;
-	line-height: 1.6;
-	color: #333;
-	background: white;
+@font-face {
+    font-family: '28-Days-Later';
+    src: url('../fonts/28-Days-Later-webfont.eot');
+    src: url('../fonts/28-Days-Later-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/28-Days-Later-webfont.woff2') format('woff2'),
+         url('../fonts/28-Days-Later-webfont.woff') format('woff'),
+         url('../fonts/28-Days-Later-webfont.ttf') format('truetype'),
+         url('../fonts/28-Days-Later-webfont.svg#28_days_laterregular') format('svg');
+    
+
 }
 
-h1 {
-	color: #3484D2;
+body, html {
+	padding: 0;
+	margin: 0;
+	background: gray repeat-x;
+	background: url('../images/background.jpg') no-repeat;
+	text-align: center;
+}
+
+#main {
+	width: 100%;
+	margin: 0 auto;
+	float: left;
+}
+
+
+/*@media (min-width: 0px) {
+	#main #left {
+		width: 220px;
+	}
+}
+
+@media (min-width: 481px) and (max-width: 979px) {
+	#main #left {
+		width: 24%;
+	}	
+}
+
+@media (max-width: 480px) {
+	#main #left {
+		width: 47%;
+	}
+}*/
+
+#main #left {
+	float: left;
+	height: auto;
+	width: 220px;
+	-webkit-border-top-right-radius: 10px;
+  	-webkit-border-bottom-right-radius: 10px;
+  	-moz-border-radius-topright: 10px;
+ 	-moz-border-radius-bottomright: 10px;
+ 	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+ 	box-shadow: 3px 3px 5px #8c8c8c;
+ 	min-height: 600px;
+	
+	/* Fallback for web browsers that don't support RGBa */
+    background-color: rgb(255, 255, 255);
+    /* RGBa with 0.6 opacity */
+    background-color: rgba(255, 255, 255, 0.52);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#ffffff)";
+}
+
+#main #right {
+	float: right;
+	width: 82%;
+	height: auto;
+}
+
+#main #right article {
+	font-size: 20px;
+	padding-left: 33px;
+	font-family: "28-Days-Later";
+	text-align: left;
+}
+
+#main #right article .line {
+	background: url('../images/line.png') repeat-x;
+	width: 97%;
+	height: 3px;
+}
+
+.cleaner {
+  clear: both;
+  height: 0;
+  content: ' ';
+  overflow: hidden;
+}
+
+#main #right #content {
+	float: left;
+}
+
+#main #left #menu {
+	float: left;
+}
+
+#main #left #menu ul {
+	
+}
+
+#main #left #menu ul li {
+	list-style-type: none; 
+}
+
+#main #left #menu ul li a {
+	font-family: "28-Days-Later";
+	color: #000000;
+	font-size: 250%;
+	text-decoration: none;
+}
+
+#main #left #menu ul li a:hover, a:hover {
+	color: #656464;
+}
+
+#main #left #menu ul li a.active {
+	color: 733f3f;
+}
+
+h1, h1 a {
+	font-family: '28-Days-Later';
+	font-size: 82px;
+	margin: 10px 0 0 0;
+	text-decoration: none;
+	color: #000000;
+}
+
+h2 {
+	font-family: '28-Days-Later';
+	font-size: 40px;
+	margin: 10px 0 0 0;
+	text-align: left;
+	
 }
 
 #ajax-spinner {
@@ -29,22 +157,4 @@ div.flash {
 a[href^="#error:"] {
 	background: red;
 	color: white;
-}
-
-form th, form td {
-	vertical-align: top;
-	font-weight: normal;
-}
-
-form th {
-	text-align: right;
-}
-
-form .required label {
-	font-weight: bold;
-}
-
-form .error {
-	color: #D00;
-	font-weight: bold;
 }

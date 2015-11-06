@@ -17,14 +17,34 @@
 </head>
 
 <body>
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-
-	{include content}
-
+	<div id="main">
+		<section id="left">
+			<aside id="menu">
+				<nav>
+					<ul>
+						<li><a n:href="Sign:in">Login</a></li>
+						<li><a href="#">My train</a></li>
+						<li><a href="#">Routines</a></li>
+						<li><a href="#">News</a></li>
+						<li><a href="#">Exercise</a></li>
+						<li><a href="#">Donate</a></li>
+						<li><a href="#">Help</a></li>
+						<li><a href="#">About</a></li>
+					</ul>
+				</nav>
+			</aside>
+		</section>
+		<section id="right">
+			<h1><a n:href="Homepage:">my workout</a></h1>
+			<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+				{include content}
+		</section>
+	</div>
 	{block scripts}
-	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-	<script src="//nette.github.io/resources/js/netteForms.min.js"></script>
-	<script src="{$basePath}/js/main.js"></script>
+		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src="{$basePath}/js/modernizr-custom.js"></script>
+		<script src="//nette.github.io/resources/js/netteForms.min.js"></script>
+		<script src="{$basePath}/js/main.js"></script>
 	{/block}
 </body>
 </html>
