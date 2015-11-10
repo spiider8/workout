@@ -22,14 +22,18 @@
 			<aside id="menu">
 				<nav>
 					<ul>
-						<li><a n:href="Sign:in">Login</a></li>
-						<li><a href="#">My train</a></li>
-						<li><a href="#">Routines</a></li>
-						<li><a href="#">News</a></li>
-						<li><a href="#">Exercise</a></li>
-						<li><a href="#">Donate</a></li>
-						<li><a href="#">Help</a></li>
-						<li><a href="#">About</a></li>
+						{if $user->isLoggedIn()}
+							<li><a n:href="Train:">My train</a></li>
+							<li><a n:href="Sign:out">Logout</a></li>
+						{else}
+							<li><a n:href="Sign:in">Login</a></li>
+						{/if}
+						
+						<li><a href="Routines:">Routines</a></li>
+						<li><a href="Exercise:">Exercise</a></li>
+						<li><a href="Donate:">Donate</a></li>
+						<li><a href="Help:">Help</a></li>
+						<li><a href="About:">About</a></li>
 					</ul>
 				</nav>
 			</aside>

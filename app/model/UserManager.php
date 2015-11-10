@@ -16,7 +16,10 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 		COLUMN_ID = 'id',
 		COLUMN_NAME = 'email',
 		COLUMN_PASSWORD_HASH = 'password',
-		COLUMN_ROLE = 'role';
+		COLUMN_ROLE = 'roles',
+		COLUMN_FCB_ID = 'fcbId',
+		COLUMN_CREATED = 'created',
+		COLUMN_ACCESS_TOKEN = 'accessToken';
 
 
 	/** @var Nette\Database\Context */
@@ -76,9 +79,32 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 		}
 	}
 
+	public function findByFacebookId($fcbId)
+	{
+		return $this->database->table(self::TABLE_NAME)->where(self::COLUMN_FCB_ID, $fcbId)->fetch();
+	}
+
+	public function registerFromFacebook($fcbId, $userInfo)
+	{
+		return $this->database->table(self::TABLE_NAME)->insert(array(
+					self::COLUMN_ROLE => 'user',
+					self::COLUMN_FCB_ID => $fcbId,
+					self::COLUMN_CREATED => date('Y-m-d H:i:s'),
+				));
+	}
+
+	public function updateFacebookAccessToken($fcbId, $accessToken)
+	{
+		return $this->database->table(self::TABLE_NAME)->where(self::COLUMN_FCB_ID, $fcbId)->update(array(
+				self::COLUMN_ACCESS_TOKEN => $accessToken
+			));
+	}
+
 }
 
 
 
 class DuplicateNameException extends \Exception
 {}
+
+

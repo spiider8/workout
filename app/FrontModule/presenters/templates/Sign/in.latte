@@ -2,5 +2,9 @@
 <h2 n:block=title>Sign in</h2>
 
 {control signInForm}
-
+{if !$user->loggedIn}
+	<a n:href="fbLogin-open!">Login using facebook</a>
+{else}
+	{? dump($user->identity)}
+{/if}
 {* or use {include '../components/form.latte', form => signInForm} *}

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Presenters;
+namespace FrontModule;
 
-use Nette;
-use App\Model;
+use \Nette;
+use \App\Model;
 
 
 class HomepagePresenter extends BasePresenter
@@ -11,7 +11,7 @@ class HomepagePresenter extends BasePresenter
 	/** @var Nette\Database\Context */
     private $database;
 
-    public function __construct(Nette\Database\Context $database)
+    public function __construct(\Nette\Database\Context $database)
     {
         $this->database = $database;
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Presenters;
+namespace FrontModule;
 
-use Nette;
+use \Nette;
 
 
 class Error4xxPresenter extends BasePresenter
