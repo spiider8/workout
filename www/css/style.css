@@ -195,3 +195,89 @@ a[href^="#error:"] {
 	float: left;
 }
 
+#main #right a.newTrainBtn {
+	color: black;
+	font-size: 23px;
+	padding: 18px 10px 10px 13px;
+	text-decoration: none;
+	font-family: "28-Days-Later";
+
+}
+
+#main #right a.newTrainBtn:hover {
+	color: #656464;
+}
+
+#main #right .trainList {
+	
+}
+
+#main #right .trainList p {
+	background: rgba(0, 0, 0, 0) url("../images/line.png") repeat-x scroll left bottom;
+	width: 60%;
+}
+
+#main #right .trainList p a {
+	color: #000000;
+	text-decoration: none;
+}
+
+#main #right .trainList p a:hover {
+	color: #656464;
+}
+
+#main #right .trainList p .date {
+	font-size: 30px;
+}
+
+#main #right .trainList p .title {
+	font-size: 30px;
+}
+
+#main #right .trainList p .share {
+	background: url("../images/share.png") no-repeat scroll 0 0;
+	display: inline-block;
+	height: 34px;
+	margin-left: 195px;
+	width: 27px;
+}
+
+#main #right .trainList p .trash {
+	background: rgba(0, 0, 0, 0) url("../images/trash.png") no-repeat scroll 0 0;
+	display: inline-block;
+	height: 30px;
+	margin-left: 15px;
+	width: 25px;
+}
+
+#main #right .trainList ul {
+	list-style-type: none;
+	font-size: 27px; 
+}
+
+#main #right .trainList ul.hide {
+	display: none;
+}
+
+#main #right .trainList ul.show {
+	display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
