@@ -1,3 +1,38 @@
 {block content}
+
 <h2>New train</h2>
-{control newTrainForm}
+{form newTrainForm}
+	<ul class="errors" n:if="$form->hasErrors()">
+        <li n:foreach="$form->errors as $error">{$error}</li>
+	</ul>
+	<table>
+		<tr>
+			<td>{label name /}</td>
+			<td>{input name}</td>
+		</tr>
+		<tr>
+			<td>{label date /}</td>
+			<td>{input date}</td>
+		</tr>
+	</table>
+	{var $i = 1}
+	{foreach $form['blocks']->containers as $block}
+		<article class="block">
+			<h3>Block {$i} {if !$iterator->first}{$block['remove']->control}{/if}</h3>
+			<table>
+			{foreach $block->controls as $item}
+					<tr{if 
+						$item->name == 'ledderFrom' || 
+						$item->name == 'ledderTo' || 
+						$item->name == 'moreWeightValue'} id="{$item->name}-{$i}"{/if}>
+						<td>{$item->label}</td>
+						<td>{$item->control}</td>
+					</tr>
+			{/foreach}
+			</table>
+		</article>
+		{var $i = $i + 1}
+	{/foreach}
+	{$form['blocks']['add']->control}
+	{input save}
+{/form}
