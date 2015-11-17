@@ -10,10 +10,6 @@
 			<td>{label name /}</td>
 			<td>{input name}</td>
 		</tr>
-		<tr>
-			<td>{label date /}</td>
-			<td>{input date}</td>
-		</tr>
 	</table>
 	{var $i = 1}
 	{foreach $form['blocks']->containers as $block}
@@ -24,7 +20,8 @@
 					<tr{if 
 						$item->name == 'ledderFrom' || 
 						$item->name == 'ledderTo' || 
-						$item->name == 'moreWeightValue'} id="{$item->name}-{$i}"{/if}>
+						$item->name == 'moreWeightValue' || 
+						$item->name == 'unitMoreWeight'} id="{$item->name}-{$i}"{/if}>
 						<td>{$item->label}</td>
 						<td>{$item->control}</td>
 					</tr>

@@ -17,53 +17,64 @@ class NewTrainFormFactory extends Nette\Object
 	{
 		$form = new Form;
 		$form->addText('name', 'Name')
-				->setRequired('Please enter name of train.');
-		$form->addText('date', 'Date')
+				->setRequired('Please enter name of train.')
 				->setDefaultValue(date('d.m.Y'));
-				
-				
+
 		$i = 1;
 		
 		$form->addDynamic('blocks', function (Container $block) use (&$i, $database) {
 				
-				$exercises = $database->table('exercises')->order('name')->fetchPairs('id', 'name');	
-				$block->addSelect('exercise', 'Exercise', $exercises);
-
-				$block->addCheckbox('ledder', 'Ledder')
+				$j = 1;
+				$block->addDynamic('exercises', function (Container $exercise) use (&$j, $database) {
+					
+					$exercisesList = $database->table('exercises')->order('name')->fetchPairs('id', 'name');
+					
+					$exercise->addSelect('exercise', 'Exercise', $exercisesList);
+					$exercise->addCheckbox('ledder', 'Ledder')
 						->addCondition(FORM::EQUAL, TRUE)
-		        			->toggle('ledderFrom-' . $i)->toggle('ledderTo-' . $i);
+							->toggle('ledderFrom-' . $j)->toggle('ledderTo-' . $j);
 				
-				$block->addCheckbox('moreWeight', 'More weight')
-						->addCondition(FORM::EQUAL, TRUE)
-		        			->toggle('moreWeightValue-' . $i);
-						
-				$block->addText('ledderFrom', 'From');
-				$block->addText('ledderTo', 'To');
+					$exercise->addCheckbox('moreWeight', 'More weight')
+							->addCondition(FORM::EQUAL, TRUE)
+								->toggle('moreWeightValue-' . $j);
+							
+					$exercise->addText('ledderFrom', 'From');
+					$exercise->addText('ledderTo', 'To');
 
-				$block->addText('moreWeightValue', 'Weight');		
+					$exercise->addText('moreWeightValue', 'Weight');		
 
-				$block->addText('sets', 'Count of sets')
-						->addConditionOn($block['ledder'], FORM::EQUAL, FALSE)
-							->toggle('sets');
-				$block->addText('reps', 'Count of reps')
-						->addConditionOn($block['ledder'], FORM::EQUAL, FALSE)
-							->toggle('reps');
-				$block->addText('rest', 'Rest');
+					$exercise->addText('sets', 'Count of sets')
+							->addConditionOn($exercise['ledder'], FORM::EQUAL, FALSE)
+								->toggle('sets');
+					$exercise->addText('reps', 'Count of reps')
+							->addConditionOn($exercise['ledder'], FORM::EQUAL, FALSE)
+								->toggle('reps');
+					$exercise->addText('rest', 'Rest');
 
-				$block->addSelect('unitRest', 'Rest unit', array(
-						'min',
-						's',
-					));
-				$block->addSelect('unitMoreWeight', 'Weight unit', array(
-						'Kg',
-						'Lb',
-					));
-				$block->addSubmit('remove', 'Remove')->addRemoveOnClick()->setAttribute('class', 'ajax');
+					$exercise->addSelect('unitRest', 'Rest unit', array(
+							'min',
+							's',
+						));
+					$exercise->addSelect('unitMoreWeight', 'Weight unit', array(
+							'Kg',
+							'Lb',
+						))
+							->addConditionOn($exercise['moreWeight'], FORM::EQUAL, TRUE)
+								->toggle('unitMoreWeight-' . $j);
+					
+					$exercise->addSubmit('remove', 'Remove exercise')->addRemoveOnClick()->setAttribute('class', 'ajax');
+					$j++;
+				}, 1);	
+
+				$block->addSubmit('remove', 'Remove block')->addRemoveOnClick()->setAttribute('class', 'ajax');
 				$i++;
+
+				$block['exercises']->addSubmit('add', 'Add exercise')->setValidationScope(FALSE)
+					->addCreateOnClick(TRUE);
     	}, 1);
 
-		$form['blocks']->addSubmit('add', 'Next block')->setValidationScope(FALSE)
-		    ->addCreateOnClick(TRUE);
+		$form['blocks']->addSubmit('add', 'Add block')->setValidationScope(FALSE)
+			->addCreateOnClick(TRUE);
 		
 		$form->addSubmit('save', 'Save');
 

@@ -263,9 +263,8 @@ a[href^="#error:"] {
 	display: block;
 }
 
-#main #right #frm-newTrainForm article.block {
-	float: left;
-	width: 470px;
+#main #right #frm-newTrainForm article.block table {
+	
 }
 
 
