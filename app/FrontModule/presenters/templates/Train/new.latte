@@ -21,7 +21,6 @@
 			<table class="exercise">
 				{foreach $block['exercises']->containers as $ekey => $exercise}
 					<tr n:if="$iterator->first">
-						<td></td>
 						<td>{label blocks-$bkey-exercises-$ekey-exercise /}</td>
 						<td>{label blocks-$bkey-exercises-$ekey-sets /}</td>
 						<td>{label blocks-$bkey-exercises-$ekey-reps /}</td>
@@ -37,7 +36,6 @@
 						<td></td>
 					</tr>
 					<tr>
-						<td>{$j}</td>
 						<td>{input blocks-$bkey-exercises-$ekey-exercise class=>'exerciseList'}</td>
 						<td>{input blocks-$bkey-exercises-$ekey-sets}</td>
 						<td>{input blocks-$bkey-exercises-$ekey-reps}</td>
@@ -51,13 +49,13 @@
 						<td>{input blocks-$bkey-exercises-$ekey-moreWeightValue}</td>
 						<td>{input blocks-$bkey-exercises-$ekey-removeExercise class=>'removeExercise'}</td>
 					</tr>
-					{$i++}
+					{var $i = $i + 1}
 				{/foreach}
 				<td colspan="9">{input blocks-$bkey-exercises-addExercise}</td>
 			</table>
 		</article>
 		{input blocks-addBlock}
-		{$j++}
+		{var $j = $j + 1}
 	{/foreach}
 	{input saveTrain}
 {/form}
