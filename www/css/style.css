@@ -152,14 +152,14 @@ a[href^="#error:"] {
 #main #right .box {
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
- 	border-radius: 10px;
+	border-radius: 10px;
 	box-shadow: 3px 3px 5px #8c8c8c;
 	/* Fallback for web browsers that don't support RGBa */
-    background-color: rgb(255, 255, 255);
-    /* RGBa with 0.6 opacity */
-    background-color: rgba(255, 255, 255, 0.52);
-    /* For IE 8*/
-    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#ffffff)";
+	background-color: rgb(255, 255, 255);
+	/* RGBa with 0.6 opacity */
+	background-color: rgba(255, 255, 255, 0.52);
+	/* For IE 8*/
+	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#ffffff)";
 }
 
 #main #right .lastTrain .box ul {
@@ -195,7 +195,8 @@ a[href^="#error:"] {
 	float: left;
 }
 
-#main #right a.newTrainBtn {
+#main #right a.newTrainBtn,
+#main #right #frm-newTrainForm input[type="submit"] {
 	color: black;
 	font-size: 23px;
 	padding: 18px 10px 10px 13px;
@@ -204,8 +205,10 @@ a[href^="#error:"] {
 
 }
 
-#main #right a.newTrainBtn:hover {
+#main #right a.newTrainBtn:hover,
+#main #right #frm-newTrainForm input[type="submit"]:hover {
 	color: #656464;
+	cursor: pointer;
 }
 
 #main #right .trainList {
@@ -263,11 +266,90 @@ a[href^="#error:"] {
 	display: block;
 }
 
-#main #right #frm-newTrainForm article.block table {
-	
+#main #right #frm-newTrainForm article.block .exercise {
+	width: 100%;
 }
 
+#main #right #frm-newTrainForm article.block .title h3 {
+	font-size: 30px;
+	text-align: center;
+}
 
+#main #right #frm-newTrainForm article.block .exercise div {
+	float: left;
+	font-size: 26px;
+	text-align: center;
+	width: 150px;
+}
+
+#main #right #frm-newTrainForm article.block .exercise div span {
+
+}
+
+#main #right #frm-newTrainForm input[type="text"] {
+	width: 50px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+ 	/* Fallback for web browsers that don't support RGBa */
+    background-color: rgb(255, 255, 255);
+    /* RGBa with 0.6 opacity */
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#ffffff)";
+    background-color: rgba(255, 255, 255, 0.82);
+	border: medium none;
+	border-radius: 10px;
+	box-shadow: 3px 3px 5px #8c8c8c;
+	font-size: 15px;
+	padding: 8px 15px;
+	text-align: center;
+	width: 26px;
+}
+
+#main #right #frm-newTrainForm .removeExercise {
+	background: url("../images/trash.png") no-repeat;
+	width: 28px;
+	height: 20px;
+	border: none;
+}
+
+#main #right #frm-newTrainForm select {
+	webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+ 	/* Fallback for web browsers that don't support RGBa */
+    background-color: rgb(255, 255, 255);
+    /* RGBa with 0.6 opacity */
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#ffffff)";
+    background-color: rgba(255, 255, 255, 0.82);
+	border: medium none;
+	border-radius: 10px;
+	box-shadow: 3px 3px 5px #8c8c8c;
+	font-size: 15px;
+	padding: 8px 15px;
+	text-align: center;
+	width: 26px;
+}
+
+#main #right #frm-newTrainForm select, #main #right #frm-newTrainForm input {
+	font-family: "28-Days-Later";
+	font-size: 24px;
+}
+
+#main #right #frm-newTrainForm .exerciseList {
+	width: 168px;
+}
+
+#main #right #frm-newTrainForm .unitRestList {
+	width: 88px;
+}
+
+#main #right #frm-newTrainForm .unitMoreWeightList {
+	width: 88px;
+}
+
+#main #right #frm-newTrainForm .exerciseList {
+
+}
 
 
 

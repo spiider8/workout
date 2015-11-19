@@ -12,24 +12,52 @@
 		</tr>
 	</table>
 	{var $i = 1}
-	{foreach $form['blocks']->containers as $block}
+	{foreach $form['blocks']->containers as $bkey => $block}
 		<article class="block">
-			<h3>Block {$i} {if !$iterator->first}{$block['remove']->control}{/if}</h3>
-			<table>
-			{foreach $block->controls as $item}
-					<tr{if 
-						$item->name == 'ledderFrom' || 
-						$item->name == 'ledderTo' || 
-						$item->name == 'moreWeightValue' || 
-						$item->name == 'unitMoreWeight'} id="{$item->name}-{$i}"{/if}>
-						<td>{$item->label}</td>
-						<td>{$item->control}</td>
+			<div class="title">
+				<h3>Block {$i} {input blocks-$bkey-removeBlock}</h3>
+			</div>
+			{var $j = 1;}
+			<table class="exercise">
+				{foreach $block['exercises']->containers as $ekey => $exercise}
+					<tr n:if="$iterator->first">
+						<td></td>
+						<td>{label blocks-$bkey-exercises-$ekey-exercise /}</td>
+						<td>{label blocks-$bkey-exercises-$ekey-sets /}</td>
+						<td>{label blocks-$bkey-exercises-$ekey-reps /}</td>
+						<td>{label blocks-$bkey-exercises-$ekey-rest /}</td>
+						<td>{label blocks-$bkey-exercises-$ekey-unitRest /}</td>
+						<td>{label blocks-$bkey-exercises-$ekey-unitMoreWeight /}</td>
+						<td>{label blocks-$bkey-exercises-$ekey-ledder /}</td>
+						<td id="ledderFromLabel-{$i}-{$j}">{label blocks-$bkey-exercises-$ekey-ledderFrom /}</td>
+						<td id="ledderToLabel-{$i}-{$j}">{label blocks-$bkey-exercises-$ekey-ledderTo /}</td>
+						<td>{label blocks-$bkey-exercises-$ekey-moreWeight /}</td>
+						<td>{label blocks-$bkey-exercises-$ekey-moreWeightValue /}</td>
+						<td>{label blocks-$bkey-exercises-$ekey-removeExercise /}</td>
+						<td></td>
 					</tr>
-			{/foreach}
+					<tr>
+						<td>{$j}</td>
+						<td>{input blocks-$bkey-exercises-$ekey-exercise class=>'exerciseList'}</td>
+						<td>{input blocks-$bkey-exercises-$ekey-sets}</td>
+						<td>{input blocks-$bkey-exercises-$ekey-reps}</td>
+						<td>{input blocks-$bkey-exercises-$ekey-rest}</td>
+						<td>{input blocks-$bkey-exercises-$ekey-unitRest class=>'unitRestList'}</td>
+						<td>{input blocks-$bkey-exercises-$ekey-unitMoreWeight class=>'unitMoreWeightList'}</td>
+						<td>{input blocks-$bkey-exercises-$ekey-ledder}</td>
+						<td id="ledderFrom-{$i}-{$j}">{input blocks-$bkey-exercises-$ekey-ledderFrom}</td>
+						<td id="ledderTo-{$i}-{$j}">{input blocks-$bkey-exercises-$ekey-ledderTo}</td>
+						<td>{input blocks-$bkey-exercises-$ekey-moreWeight}</td>
+						<td>{input blocks-$bkey-exercises-$ekey-moreWeightValue}</td>
+						<td>{input blocks-$bkey-exercises-$ekey-removeExercise class=>'removeExercise'}</td>
+					</tr>
+					{$i++}
+				{/foreach}
+				<td colspan="9">{input blocks-$bkey-exercises-addExercise}</td>
 			</table>
 		</article>
-		{var $i = $i + 1}
+		{input blocks-addBlock}
+		{$j++}
 	{/foreach}
-	{$form['blocks']['add']->control}
-	{input save}
+	{input saveTrain}
 {/form}

@@ -22,27 +22,19 @@ class NewTrainFormFactory extends Nette\Object
 
 		$i = 1;
 		
-		$form->addDynamic('blocks', function (Container $block) use (&$i, $database) {
+		$blocks = $form->addDynamic('blocks', function (Container $block) use (&$i, $database) {
 				
 				$j = 1;
-				$block->addDynamic('exercises', function (Container $exercise) use (&$j, $database) {
+				$exercises = $block->addDynamic('exercises', function (Container $exercise) use (&$i, &$j, $database) {
 					
 					$exercisesList = $database->table('exercises')->order('name')->fetchPairs('id', 'name');
 					
 					$exercise->addSelect('exercise', 'Exercise', $exercisesList);
 					$exercise->addCheckbox('ledder', 'Ledder')
 						->addCondition(FORM::EQUAL, TRUE)
-							->toggle('ledderFrom-' . $j)->toggle('ledderTo-' . $j);
+							->toggle('ledderFrom-' . $i . '-' . $j)->toggle('ledderTo-' . $i . '-' . $j)
+							->toggle('ledderFromLabel-' . $i . '-' . $j)->toggle('ledderToLabel-' . $i . '-' . $j);
 				
-					$exercise->addCheckbox('moreWeight', 'More weight')
-							->addCondition(FORM::EQUAL, TRUE)
-								->toggle('moreWeightValue-' . $j);
-							
-					$exercise->addText('ledderFrom', 'From');
-					$exercise->addText('ledderTo', 'To');
-
-					$exercise->addText('moreWeightValue', 'Weight');		
-
 					$exercise->addText('sets', 'Count of sets')
 							->addConditionOn($exercise['ledder'], FORM::EQUAL, FALSE)
 								->toggle('sets');
@@ -50,33 +42,42 @@ class NewTrainFormFactory extends Nette\Object
 							->addConditionOn($exercise['ledder'], FORM::EQUAL, FALSE)
 								->toggle('reps');
 					$exercise->addText('rest', 'Rest');
-
 					$exercise->addSelect('unitRest', 'Rest unit', array(
 							'min',
 							's',
 						));
+					$exercise->addText('ledderFrom', 'From');
+					$exercise->addText('ledderTo', 'To');
+					
+					$exercise->addCheckbox('moreWeight', 'More weight')
+							->addCondition(FORM::EQUAL, TRUE)
+								->toggle('moreWeightValue-' . $i . '-' . $j);
+					$exercise->addText('moreWeightValue', 'Weight');
+					
 					$exercise->addSelect('unitMoreWeight', 'Weight unit', array(
 							'Kg',
 							'Lb',
 						))
 							->addConditionOn($exercise['moreWeight'], FORM::EQUAL, TRUE)
-								->toggle('unitMoreWeight-' . $j);
-					
-					$exercise->addSubmit('remove', 'Remove exercise')->addRemoveOnClick()->setAttribute('class', 'ajax');
-					$j++;
-				}, 1);	
+								->toggle('unitMoreWeight-' . $i . '-' . $j);
 
-				$block->addSubmit('remove', 'Remove block')->addRemoveOnClick()->setAttribute('class', 'ajax');
+					$exercise->addSubmit('removeExercise', '')->addRemoveOnClick()->setAttribute('class', 'ajax box');
+					$j++;
+				}, 1, TRUE);	
+				
+				$exercises->addSubmit('addExercise', 'Add exercise')->setValidationScope(FALSE)
+					->addCreateOnClick(TRUE)->setAttribute('class', 'ajax box');
+
+				$block->addSubmit('removeBlock', 'Remove block')->addRemoveOnClick()->setAttribute('class', 'ajax box');
 				$i++;
 
-				$block['exercises']->addSubmit('add', 'Add exercise')->setValidationScope(FALSE)
-					->addCreateOnClick(TRUE);
-    	}, 1);
+				
+    	}, 1, TRUE);
 
-		$form['blocks']->addSubmit('add', 'Add block')->setValidationScope(FALSE)
-			->addCreateOnClick(TRUE);
+		$blocks->addSubmit('addBlock', 'Add block')->setValidationScope(FALSE)
+			->addCreateOnClick(TRUE)->setAttribute('class', 'ajax box');
 		
-		$form->addSubmit('save', 'Save');
+		$form->addSubmit('saveTrain', 'Save train')->setAttribute('class', 'ajax box');
 
 		$form->onSuccess[] = array($this, 'formSucceeded');
 		
