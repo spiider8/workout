@@ -11,5 +11,15 @@ use \App\Model;
  */
 abstract class BasePresenter extends \Nette\Application\UI\Presenter
 {
+	/** @var \App\Model\Exercise @inject */
+	public $exercise;
 
+	/** @var \App\Model\Train @inject */
+	public $train;
+
+	/** @var \App\Model\Block @inject */
+	public $block;
+
+	/** @var \App\Model\TrainItem @inject */
+	public $trainItem;
 }

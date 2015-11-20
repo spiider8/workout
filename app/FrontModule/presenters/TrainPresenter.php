@@ -9,25 +9,18 @@ use App\Forms\NewTrainFormFactory;
 
 class TrainPresenter extends SecuredPresenter
 {
-	/** @var Nette\Database\Context */
-    private $database;
-
     /** @var NewTrainFormFactory @inject */
 	public $factory;
 
-    public function __construct(Nette\Database\Context $database)
-    {
-    	$this->database = $database;
-    }
-
     /**
-	 * New train form factory.
+	 * Tovartna pro formular pridani formulare
 	 * @return Nette\Application\UI\Form
 	 */
 	protected function createComponentNewTrainForm()
 	{
-		$form = $this->factory->create($this->database);
+		$form = $this->factory->create($this->exercise, $this->train, $this->block, $this->trainItem, $this->user);
 		$form->onSuccess[] = function ($form) {
+			$this->getPresenter()->flashMessage('Train was added', 'success');
 			$form->getPresenter()->redirect('this');
 		};
 		return $form;
@@ -35,7 +28,20 @@ class TrainPresenter extends SecuredPresenter
 
 	public function renderDefault()
 	{
+		$this->template->lastTrain = $this->train->getLastTrainByUser($this->user->getId());
+		/*foreach($lastTrain->related('blocks.train_id') as $block) {
+			echo $block->id;
+		}
+		exit;
+		$lastBlocks = $this->block->getBlocksByTrain($lastTrain->id);
+		foreach ($lastBlocks as $block) {
+			$lastTrainItems[$block->id] = $this->trainItem->getItemsByBlock($block->id);
+		}
 		
+		foreach ($lastTrainItems as $item) {
+			echo $item['block_id'] . '-';
+		}
+		exit;*/
 	}
 
 }

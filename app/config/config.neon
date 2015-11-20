@@ -19,6 +19,10 @@ session:
 
 services:
 	- App\Model\UserManager
+	- App\Model\Train
+	- App\Model\Exercise
+	- App\Model\Block
+	- App\Model\TrainItem
 	- App\Forms\SignFormFactory
 	- App\Forms\NewTrainFormFactory
 	router: App\RouterFactory::createRouter

@@ -2,7 +2,7 @@
 
 namespace FrontModule;
 
-abstract class SecuredPresenter extends BasePresenter
+class SecuredPresenter extends BasePresenter
 {
     public function startup()
     {
