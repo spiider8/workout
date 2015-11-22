@@ -1,9 +1,9 @@
 {block content}
 <a n:href="list" class="box">List</a>
-
 <section class="lastTrain">
 	<h2 n:block=title>Your last train</h2>
 	<article class="box list">
+	{if $lastTrain}
 		<h3>{$lastTrain->dateCreated|date:'%d %m %Y'}</h3>
 		{foreach $lastTrain->related('blocks.train_id') as $block}
 			<h4>
@@ -33,9 +33,12 @@
 			</ul>
 
 		{/foreach}
-		
+	{else}
+		<p>You have no train for now. You can create your first train <a n:href="new">HERE</a></p>
+	{/if}
 	</article>
 </section>
+
 <section class="statistics">
 	<h2>Statistics</h2>
 	<article class="weekly box">
