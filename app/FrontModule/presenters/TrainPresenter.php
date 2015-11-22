@@ -29,6 +29,11 @@ class TrainPresenter extends SecuredPresenter
 	public function renderDefault()
 	{
 		$this->template->lastTrain = $this->train->getLastTrainByUser($this->user->getId());
+
+		$this->template->weekly = $this->train->getStatisticsPeriod($this->user->getId(), '1 WEEK');
+		$this->template->monthly = $this->train->getStatisticsPeriod($this->user->getId(), '1 MONTH');
+		$this->template->total = $this->train->getStatisticsTotal($this->user->getId());
+
 	}
 
 	public function renderList()

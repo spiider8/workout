@@ -13,4 +13,6 @@ class Exercise extends BaseModel
 	public function getAll(){
 		return $this->database->table($this->table);
 	}
+
+	
 }

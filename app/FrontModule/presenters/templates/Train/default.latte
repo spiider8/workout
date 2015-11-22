@@ -43,38 +43,20 @@
 	<h2>Statistics</h2>
 	<article class="weekly box">
 		<h3>Weekly</h3>
-		<ul>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
+		<ul n:foreach="$weekly as $item">
+			<li>{$item->name} {$item->setsRepsSum}</li>
 		</ul>
 	</article>
 	<article class="monthly box">
 		<h3>Monthly</h3>
-		<ul>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
+		<ul n:foreach="$monthly as $item">
+			<li>{$item->name} {$item->setsRepsSum}</li>
 		</ul>
 	</article>
 	<article class="total box">
 		<h3>Total</h3>
-		<ul>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
-			<li>aaaaaaaaaaa</li>
+		<ul n:foreach="$total as $item">
+			<li>{$item->name} {$item->setsRepsSum}</li>
 		</ul>
 	</article>
 </section>
