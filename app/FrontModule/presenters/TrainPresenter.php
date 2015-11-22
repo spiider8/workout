@@ -18,10 +18,10 @@ class TrainPresenter extends SecuredPresenter
 	 */
 	protected function createComponentNewTrainForm()
 	{
-		$form = $this->factory->create($this->exercise, $this->train, $this->block, $this->trainItem, $this->user);
+		$form = $this->factory->create($this->exercise, $this->train, $this->block, $this->trainItem, $this);
 		$form->onSuccess[] = function ($form) {
 			$this->getPresenter()->flashMessage('Train was added', 'success');
-			$form->getPresenter()->redirect('this');
+			$form->getPresenter()->redirect('list');
 		};
 		return $form;
 	}
@@ -29,19 +29,22 @@ class TrainPresenter extends SecuredPresenter
 	public function renderDefault()
 	{
 		$this->template->lastTrain = $this->train->getLastTrainByUser($this->user->getId());
-		/*foreach($lastTrain->related('blocks.train_id') as $block) {
-			echo $block->id;
+	}
+
+	public function renderList()
+	{
+		$this->template->trains = $this->train->getTrainsByUser($this->user->getId());
+	}
+
+	public function actionDelete($trainId)
+	{
+		if ($this->train->deleteTrain($trainId)) {
+			$this->flashMessage('Train was deleted', 'success');
 		}
-		exit;
-		$lastBlocks = $this->block->getBlocksByTrain($lastTrain->id);
-		foreach ($lastBlocks as $block) {
-			$lastTrainItems[$block->id] = $this->trainItem->getItemsByBlock($block->id);
+		else {
+			$this->flashMessage('Train was not deleted', 'error');
 		}
-		
-		foreach ($lastTrainItems as $item) {
-			echo $item['block_id'] . '-';
-		}
-		exit;*/
+		$this->redirect('list');
 	}
 
 }

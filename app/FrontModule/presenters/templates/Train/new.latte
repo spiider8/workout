@@ -1,6 +1,7 @@
 {block content}
 
 <h2>New train</h2>
+{snippet blocks}
 {form newTrainForm}
 	<ul class="errors" n:if="$form->hasErrors()">
         <li n:foreach="$form->errors as $error">{$error}</li>
@@ -14,10 +15,13 @@
 	
 	{foreach $form['blocks']->containers as $bkey => $block}
 		<article class="block">
-			<div class="title">
-				<h3>Block {$bkey + 1} {input blocks-$bkey-removeBlock}</h3>
-			</div>
-				<table class="exercise">
+			<table class="exercise">
+				<tr>
+					<td><h3>Block {$bkey + 1}</h3></td>
+					<td>{label blocks-$bkey-blockRest /}{input blocks-$bkey-blockRest} {input blocks-$bkey-unitBlockRest}</td>
+					<td n:if="!$iterator->first">{input blocks-$bkey-removeBlock class=>'trash ajax'}</td>
+				</tr>
+				
 					{foreach $block['exercises']->containers as $ekey => $exercise}
 						<tr n:if="$iterator->first">
 							<td></td>
@@ -48,11 +52,10 @@
 							<td>{input blocks-$bkey-exercises-$ekey-moreWeight}</td>
 							<td id="moreWeightValue-{$bkey}-{$ekey}">{input blocks-$bkey-exercises-$ekey-moreWeightValue}</td>
 							<td id="unitMoreWeight-{$bkey}-{$ekey}">{input blocks-$bkey-exercises-$ekey-unitMoreWeight class=>'unitMoreWeightList'}</td>
-							<td>{input blocks-$bkey-exercises-$ekey-removeExercise class=>'removeExercise'}</td>
+							<td>{input blocks-$bkey-exercises-$ekey-removeExercise class=>'trash ajax'}</td>
 						</tr>
 					{/foreach}
 					<td colspan="8">{input blocks-$bkey-exercises-addExercise}</td>
-					<td>{label blocks-$bkey-blockRest /}{input blocks-$bkey-blockRest} {input blocks-$bkey-unitBlockRest}</td>
 				</table>
 			
 		</article>
@@ -60,3 +63,4 @@
 	{input blocks-addBlock}
 	{input saveTrain}
 {/form}
+{/snippet}

@@ -258,11 +258,11 @@ a[href^="#error:"] {
 	font-size: 27px; 
 }
 
-#main #right .trainList ul.hide {
+#main #right .trainList .trainContent.hide {
 	display: none;
 }
 
-#main #right .trainList ul.show {
+#main #right .trainList .trainContent.show {
 	display: block;
 }
 
@@ -305,7 +305,7 @@ a[href^="#error:"] {
 	width: 26px;
 }
 
-#main #right #frm-newTrainForm .removeExercise {
+#main #right #frm-newTrainForm .trash {
 	background: url("../images/trash.png") no-repeat;
 	width: 28px;
 	height: 20px;

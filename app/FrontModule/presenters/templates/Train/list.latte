@@ -1,90 +1,42 @@
 {block content}
 <h2>Train list</h2>
 <a n:href="new" class="newTrainBtn box">NEW</a>
-<article class="trainList">
+<article class="trainList" n:foreach="$trains as $train">
 	<p>
 		<a href="#">
-			<span class="date">02 05 2015 17:30</span>
-			<span class="title">Hard work</span>
+			<span class="date">{$train->date|date:'%d %m %Y %H%M'}</span>
+			<span class="title">{$train->name}</span>
 		</a>
 		<a n:href="share" class="share"></a>
-		<a n:href="trash" class="trash"></a>
+		<a onclick="return confirm('Train will be delete. Are you sure?')" n:href="delete trainId => $train->id" class="trash"></a>
 	</p>
-	<ul class="show">
-		<li>Running 20min</li>
-		<li>Mountain climber 30s</li>
-		<li>Plank 1min</li>
-		<li>Pull ups 10x</li>
-		<li>Dips 15x</li>
-		<li>Leg raises 10x</li>
-		<li>Squats 20x</li>
-	</ul>
+	<div class="trainContent hide">
+		{foreach $train->related('blocks.train_id') as $block}
+			<h4>
+				Block {$block->number}
+				{if $block->blockRest != 0}
+					rest {$block->blockRest} {$block->unitBlockRest}
+				{/if}
+				{if $block->blockSets != 0}
+					sets {$block->blockSets}
+				{/if}
+			</h4>
+			<ul n:foreach="$block->related('trainItems.block_id') as $item">
+				<li>
+					{$item->ref('exercises', 'exercise_id')->name}
+					{if $item->sets != 0}sets {$item->sets}{/if}
+					{if $item->reps != 0}reps {$item->reps}{/if}
+					total {$item->sets * $item->reps}
+					{if $item->ledder != '' || $item->ledder != 0}
+						Ledder from {$item->ledderFrom} ledder to {$item->ledderTo}
+					{/if}
+					{if $item->moreWeight != '' || $item->ledder != 0}
+						more weight {$item->moreWeightValue} {$item->unitMoreWeight}
+					{/if}
+					{if $item->rest != 0}{$item->rest} {$item->unitRest}{/if}
+				</li>		
+			</ul>
+		{/foreach}
+	</div>
 </article>
-<article class="trainList">
-	<p>
-		<span class="date">02 05 2015 17:30</span>
-		<span class="title">Hard work</span>
-		<a href="#" class="share"></a>
-		<a href="#" class="trash"></a>
-	</p>
-	<ul class="hide">
-		<li>Running 20min</li>
-		<li>Mountain climber 30s</li>
-		<li>Plank 1min</li>
-		<li>Pull ups 10x</li>
-		<li>Dips 15x</li>
-		<li>Leg raises 10x</li>
-		<li>Squats 20x</li>
-	</ul>
-</article>
-<article class="trainList">
-	<p>
-		<span class="date">02 05 2015 17:30</span>
-		<span class="title">Hard work</span>
-		<a class="share"></a>
-		<a class="trash"></a>
-	</p>
-	<ul class="hide">
-		<li>Running 20min</li>
-		<li>Mountain climber 30s</li>
-		<li>Plank 1min</li>
-		<li>Pull ups 10x</li>
-		<li>Dips 15x</li>
-		<li>Leg raises 10x</li>
-		<li>Squats 20x</li>
-	</ul>
-</article>
-<article class="trainList">
-	<p>
-		<span class="date">02 05 2015 17:30</span>
-		<span class="title">Hard work</span>
-		<a class="share"></a>
-		<a class="trash"></a>
-	</p>
-	<ul class="hide">
-		<li>Running 20min</li>
-		<li>Mountain climber 30s</li>
-		<li>Plank 1min</li>
-		<li>Pull ups 10x</li>
-		<li>Dips 15x</li>
-		<li>Leg raises 10x</li>
-		<li>Squats 20x</li>
-	</ul>
-</article>
-<article class="trainList">
-	<p>
-		<span class="date">02 05 2015 17:30</span>
-		<span class="title">Hard work</span>
-		<a class="share"></a>
-		<a class="trash"></a>
-	</p>
-	<ul class="hide">
-		<li>Running 20min</li>
-		<li>Mountain climber 30s</li>
-		<li>Plank 1min</li>
-		<li>Pull ups 10x</li>
-		<li>Dips 15x</li>
-		<li>Leg raises 10x</li>
-		<li>Squats 20x</li>
-	</ul>
-</article>
+

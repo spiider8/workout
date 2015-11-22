@@ -23,14 +23,14 @@ class NewTrainFormFactory extends Nette\Object
 	/**
 	 * @return Form
 	 */
-	public function create($exerciseModel, $trainModel, $blockModel, $trainItem, $user)
+	public function create($exerciseModel, $trainModel, $blockModel, $trainItem, $presenter)
 	{
 		$this->trainModel = $trainModel;
 		$this->exerciseModel = $exerciseModel;
 		$this->blockModel = $blockModel;
 		$this->trainItem = $trainItem;
-		$this->user = $user;
-
+		$this->user = $presenter->user;
+		
 		$form = new Form;
 		$form->addText('name', 'Name')
 				->setRequired('Please enter name of train.')
@@ -38,10 +38,15 @@ class NewTrainFormFactory extends Nette\Object
 
 		$i = 0;
 		
-		$blocks = $form->addDynamic('blocks', function (Container $block) use ($i, $exerciseModel) {
+		$invalidateCallback = function() use($presenter){
+			/** @var \Nette\Application\UI\Presenter $presenter */
+			$presenter->invalidateControl('blocks');
+		};
+		$blocks = $form->addDynamic('blocks', function (Container $block) use ($i, $exerciseModel, $invalidateCallback) {
 				
 				$j = 0;
-				$exercises = $block->addDynamic('exercises', function (Container $exercise) use ($i, $j, $exerciseModel) {
+				$exercises = $block->addDynamic('exercises', 
+					function (Container $exercise) use ($i, $j, $exerciseModel, $invalidateCallback) {
 					
 					$exercisesList = $exerciseModel->getAll()->order('name')->fetchPairs('id', 'name');
 					
@@ -79,25 +84,28 @@ class NewTrainFormFactory extends Nette\Object
 								->toggle('unitMoreWeight-' . $i . '-' . $j)
 								->toggle('unitMoreWeightLabel-' . $i . '-' . $j);
 
-					$exercise->addSubmit('removeExercise', '')->addRemoveOnClick()->setAttribute('class', 'ajax box');
+					$exercise->addSubmit('removeExercise', '')
+						->addRemoveOnClick($invalidateCallback);
 					$j++;
 				}, 1, TRUE);	
 				
 				$exercises->addSubmit('addExercise', 'Add exercise')->setValidationScope(FALSE)
-					->addCreateOnClick(TRUE)->setAttribute('class', 'ajax box');
+					->addCreateOnClick($invalidateCallback)->setAttribute('class', 'ajax box');
+				
 				$block->addText('blockRest', 'Rest between block');
 				$block->addSelect('unitBlockRest', 'Unit block rest', array(
 							'min',
 							's',
 						));
 		
-				$block->addSubmit('removeBlock', 'Remove block')->addRemoveOnClick()->setAttribute('class', 'ajax box');
+				$block->addSubmit('removeBlock', '')
+					->addRemoveOnClick($invalidateCallback);
 				$i++;
 
 				
     	}, 1, TRUE);
 		$blocks->addSubmit('addBlock', 'Add block')->setValidationScope(FALSE)
-			->addCreateOnClick(TRUE)->setAttribute('class', 'ajax box');
+			->addCreateOnClick($invalidateCallback)->setAttribute('class', 'ajax box');
 		
 		$form->addSubmit('saveTrain', 'Save train')->setAttribute('class', 'ajax box');
 

@@ -20,6 +20,7 @@
 					{$item->ref('exercises', 'exercise_id')->name}
 					{if $item->sets != 0}sets {$item->sets}{/if}
 					{if $item->reps != 0}reps {$item->reps}{/if}
+					total {$item->sets * $item->reps}
 					{if $item->ledder != '' || $item->ledder != 0}
 						Ledder from {$item->ledderFrom} ledder to {$item->ledderTo}
 					{/if}
@@ -28,7 +29,9 @@
 					{/if}
 					{if $item->rest != 0}{$item->rest} {$item->unitRest}{/if}
 				</li>
+				<li></li>
 			</ul>
+
 		{/foreach}
 		
 	</article>
