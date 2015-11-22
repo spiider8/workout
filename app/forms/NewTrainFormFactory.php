@@ -21,6 +21,8 @@ class NewTrainFormFactory extends Nette\Object
 	private $trainItem;
 
 	/**
+	 * Form pro pridani noveho treninku
+	 * @param
 	 * @return Form
 	 */
 	public function create($exerciseModel, $trainModel, $blockModel, $trainItem, $presenter)
@@ -32,16 +34,14 @@ class NewTrainFormFactory extends Nette\Object
 		$this->user = $presenter->user;
 		
 		$form = new Form;
-		$form->addText('name', 'Name')
-				->setRequired('Please enter name of train.')
-				->setDefaultValue(date('d.m.Y'));
-
+		$form->addText('name', 'Name');
+		$form->addText('dateTrain', 'Date of train');
 		$i = 0;
 		
 		$invalidateCallback = function() use($presenter){
-			/** @var \Nette\Application\UI\Presenter $presenter */
 			$presenter->invalidateControl('blocks');
 		};
+
 		$blocks = $form->addDynamic('blocks', function (Container $block) use ($i, $exerciseModel, $invalidateCallback) {
 				
 				$j = 0;
@@ -92,11 +92,12 @@ class NewTrainFormFactory extends Nette\Object
 				$exercises->addSubmit('addExercise', 'Add exercise')->setValidationScope(FALSE)
 					->addCreateOnClick($invalidateCallback)->setAttribute('class', 'ajax box');
 				
-				$block->addText('blockRest', 'Rest between block');
+				$block->addText('blockRest', 'Rest after block');
 				$block->addSelect('unitBlockRest', 'Unit block rest', array(
 							'min',
 							's',
 						));
+				$block->addText('repsOfBlock', 'Reps of block');
 		
 				$block->addSubmit('removeBlock', '')
 					->addRemoveOnClick($invalidateCallback);
@@ -120,6 +121,7 @@ class NewTrainFormFactory extends Nette\Object
 				'user_id' => $this->user->getId(),
 				'name' => $values->name,
 				'dateCreated' => date('Y-m-d H:i:s'),
+				'dateOfTrain' => date('Y-m-d H:i:s', strtotime($values->dateOfTrain)),
 			);
 
 		$trainId = $this->trainModel->addTrain($trainData);
@@ -131,6 +133,7 @@ class NewTrainFormFactory extends Nette\Object
 					'number' => $bkey + 1,
 					'blockRest' => $block->blockRest,
 					'unitBlockRest' => $block->unitBlockRest,
+					'repsOfBlock' => $block->repsOfBlock,
 				);
 			$blockId = $this->blockModel->addBlock($blockData);
 			foreach($block->exercises as $ekey => $exercise) {

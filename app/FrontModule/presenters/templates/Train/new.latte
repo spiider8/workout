@@ -11,6 +11,10 @@
 			<td>{label name /}</td>
 			<td>{input name}</td>
 		</tr>
+		<tr>
+			<td>{label dateTrain /}</td>
+			<td>{input dateTrain}</td>
+		</tr>
 	</table>
 	
 	{foreach $form['blocks']->containers as $bkey => $block}
@@ -18,7 +22,8 @@
 			<table class="exercise">
 				<tr>
 					<td><h3>Block {$bkey + 1}</h3></td>
-					<td>{label blocks-$bkey-blockRest /}{input blocks-$bkey-blockRest} {input blocks-$bkey-unitBlockRest}</td>
+					<td>{label blocks-$bkey-blockRest /}{input blocks-$bkey-blockRest} {input blocks-$bkey-unitBlockRest class=>'unitBlockRestList'}</td>
+					<td>{label blocks-$bkey-repsOfBlock /}{input blocks-$bkey-repsOfBlock}</td>
 					<td n:if="!$iterator->first">{input blocks-$bkey-removeBlock class=>'trash ajax'}</td>
 				</tr>
 				

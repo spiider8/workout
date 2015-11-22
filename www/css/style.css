@@ -339,7 +339,8 @@ a[href^="#error:"] {
 	width: 168px;
 }
 
-#main #right #frm-newTrainForm .unitRestList {
+#main #right #frm-newTrainForm .unitRestList,
+#main #right #frm-newTrainForm .unitBlockRestList {
 	width: 88px;
 }
 
