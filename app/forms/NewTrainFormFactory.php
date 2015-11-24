@@ -83,7 +83,11 @@ class NewTrainFormFactory extends Nette\Object
 							->addConditionOn($exercise['moreWeight'], FORM::EQUAL, TRUE)
 								->toggle('unitMoreWeight-' . $i . '-' . $j)
 								->toggle('unitMoreWeightLabel-' . $i . '-' . $j);
-
+					$exercise->addText('hold', 'Hold');
+					$exercise->addSelect('unitHold', '', array(
+							'min',
+							's',
+						));
 					$exercise->addSubmit('removeExercise', '')
 						->addRemoveOnClick($invalidateCallback);
 					$j++;
@@ -108,7 +112,7 @@ class NewTrainFormFactory extends Nette\Object
 		$blocks->addSubmit('addBlock', 'Add block')->setValidationScope(FALSE)
 			->addCreateOnClick($invalidateCallback)->setAttribute('class', 'ajax box');
 		
-		$form->addSubmit('saveTrain', 'Save train')->setAttribute('class', 'ajax box');
+		$form->addSubmit('saveTrain', 'Save train')->setAttribute('class', 'box');
 
 		$form->onSuccess[] = array($this, 'formSucceeded');
 		
@@ -121,7 +125,7 @@ class NewTrainFormFactory extends Nette\Object
 				'user_id' => $this->user->getId(),
 				'name' => $values->name,
 				'dateCreated' => date('Y-m-d H:i:s'),
-				'dateOfTrain' => date('Y-m-d H:i:s', strtotime($values->dateOfTrain)),
+				'dateTrain' => date('Y-m-d H:i:s', strtotime($values->dateTrain)),
 			);
 
 		$trainId = $this->trainModel->addTrain($trainData);

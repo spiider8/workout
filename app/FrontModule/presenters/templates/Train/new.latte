@@ -41,6 +41,8 @@
 							<td>{label blocks-$bkey-exercises-$ekey-moreWeight /}</td>
 							<td id="moreWeightValueLabel-{$bkey}-{$ekey}">{label blocks-$bkey-exercises-$ekey-moreWeightValue /}</td>
 							<td id="unitMoreWeightLabel-{$bkey}-{$ekey}">{label blocks-$bkey-exercises-$ekey-unitMoreWeight /}</td>
+							<td>{label blocks-$bkey-exercises-$ekey-hold /}</td>
+							<td>{label blocks-$bkey-exercises-$ekey-unitHold /}</td>
 							<td>{label blocks-$bkey-exercises-$ekey-removeExercise /}</td>
 							<td></td>
 						</tr>
@@ -57,6 +59,8 @@
 							<td>{input blocks-$bkey-exercises-$ekey-moreWeight}</td>
 							<td id="moreWeightValue-{$bkey}-{$ekey}">{input blocks-$bkey-exercises-$ekey-moreWeightValue}</td>
 							<td id="unitMoreWeight-{$bkey}-{$ekey}">{input blocks-$bkey-exercises-$ekey-unitMoreWeight class=>'unitMoreWeightList'}</td>
+							<td>{input blocks-$bkey-exercises-$ekey-hold}</td>
+							<td>{input blocks-$bkey-exercises-$ekey-unitHold}</td>
 							<td>{input blocks-$bkey-exercises-$ekey-removeExercise class=>'trash ajax'}</td>
 						</tr>
 					{/foreach}
