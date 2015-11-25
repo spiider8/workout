@@ -14,15 +14,15 @@ body, html {
 	padding: 0;
 	margin: 0;
 	background: gray repeat-x;
-	background: url('../images/background.jpg') no-repeat;
-	background-color: #f0f0f0;
+	background: url('../images/background-old.jpg') no-repeat;
 	text-align: center;
 }
 
 #main {
-	width: 100%;
+	width: 1280px;
 	margin: 0 auto;
 	float: left;
+	height: auto;
 }
 
 /**/
@@ -65,6 +65,12 @@ body, html {
     -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#ffffff)";
 }
 
+#main #right {
+	float: right;
+	width: 1060px;
+	height: auto;
+}
+
 #main #left #menu {
 	float: left;
 }
@@ -80,7 +86,7 @@ body, html {
 #main #left #menu ul li a {
 	font-family: "28-Days-Later";
 	color: #000000;
-	font-size: 250%;
+	font-size: 37px;
 	text-decoration: none;
 }
 
@@ -131,11 +137,7 @@ a[href^="#error:"] {
 }
 
 
-#main #right {
-	float: right;
-	width: 82%;
-	height: auto;
-}
+
 
 #main #right article {
 	font-size: 20px;
@@ -267,27 +269,104 @@ a[href^="#error:"] {
 	display: block;
 }
 
-#main #right #frm-newTrainForm article.block .exercise {
+/*===============NEW TRAIN==============*/
+
+#frm-newTrainForm {
+	text-align: left;
+	font-family: '28-Days-Later';
+	font-size: 20px;
+}
+
+#frm-newTrainForm .trainData {
+	padding: 0 0 15px 32px;
+}
+
+#frm-newTrainForm .trainData span input {
+	width: 150px;
+	font-size: 20px;
+}
+
+#frm-newTrainForm .trainData span label {
+	position: relative;
+	top: 7px;
+}
+
+#frm-newTrainForm article.block {
+	padding: 0px;
+}
+
+#frm-newTrainForm article.block .exercise {
 	width: 100%;
 }
 
-#main #right #frm-newTrainForm article.block .title h3 {
+#frm-newTrainForm article.block .exercise .header span:nth-child(2),
+#frm-newTrainForm article.block .exercise .header span:nth-child(3) {
+	margin-left: 190px; 
+}
+
+#frm-newTrainForm article.block .exercise .labels {
+	position: relative;
+	top: 14px;
+	margin-top: 15px;
+}
+
+#frm-newTrainForm article.block .exercise .labels .exercise {
+	letter-spacing: 5px;
+	margin-left: 15px;
+}
+
+#frm-newTrainForm article.block .exercise .labels .sets {
+	margin-left: 57px;
+}
+
+#frm-newTrainForm article.block .exercise .labels .reps {
+	margin-left: 23px;
+}
+
+#frm-newTrainForm article.block .exercise .labels .rest {
+	margin-left: 43px;
+	letter-spacing: 10px;
+}
+
+#frm-newTrainForm article.block .exercise .labels .ledder {
+	position: relative;
+	top: -19px;
+	left: 80px;
+}
+
+#frm-newTrainForm article.block .exercise .labels .ledderFrom {
+	margin-left: -4px;
+}
+
+#frm-newTrainForm article.block .exercise .labels .ledderTo {
+	margin-left: 23px;
+}
+
+#frm-newTrainForm article.block .exercise .labels .moreWeightValue {
+	margin-left: 40px;
+}
+
+#frm-newTrainForm article.block .exercise .labels .hold {
+	margin-left: 61px;
+	letter-spacing: 5px;
+}
+
+#frm-newTrainForm article.block .exercise .addExercise {
+	margin: 10px;
+	position: relative;
+	top: 10px;
+}
+
+#frm-newTrainForm .blockTrainBtn {
+	padding: 20px 0 0 44px;
+}
+
+#frm-newTrainForm article.block .title h3 {
 	font-size: 30px;
 	text-align: center;
 }
 
-#main #right #frm-newTrainForm article.block .exercise div {
-	float: left;
-	font-size: 26px;
-	text-align: center;
-	width: 150px;
-}
-
-#main #right #frm-newTrainForm article.block .exercise div span {
-
-}
-
-#main #right #frm-newTrainForm input[type="text"] {
+#frm-newTrainForm input[type="text"] {
 	width: 50px;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
@@ -306,14 +385,14 @@ a[href^="#error:"] {
 	width: 26px;
 }
 
-#main #right #frm-newTrainForm .trash {
+#frm-newTrainForm .trash {
 	background: url("../images/trash.png") no-repeat;
 	width: 28px;
 	height: 20px;
 	border: none;
 }
 
-#main #right #frm-newTrainForm select {
+#frm-newTrainForm select {
 	webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
  	/* Fallback for web browsers that don't support RGBa */
@@ -331,25 +410,26 @@ a[href^="#error:"] {
 	width: 26px;
 }
 
-#main #right #frm-newTrainForm select, #main #right #frm-newTrainForm input {
+#frm-newTrainForm select, #main #right #frm-newTrainForm input {
 	font-family: "28-Days-Later";
-	font-size: 24px;
+	font-size: 20px;
 }
 
-#main #right #frm-newTrainForm .exerciseList {
+#frm-newTrainForm .exerciseList {
 	width: 168px;
 }
 
-#main #right #frm-newTrainForm .unitRestList,
-#main #right #frm-newTrainForm .unitBlockRestList {
+#frm-newTrainForm .unitRestList,
+#frm-newTrainForm .unitBlockRestList,
+#frm-newTrainForm .unitHoldList {
 	width: 88px;
 }
 
-#main #right #frm-newTrainForm .unitMoreWeightList {
+#frm-newTrainForm .unitMoreWeightList {
 	width: 88px;
 }
 
-#main #right #frm-newTrainForm .exerciseList {
+#frm-newTrainForm .exerciseList {
 
 }
 

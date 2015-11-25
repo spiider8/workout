@@ -21,10 +21,12 @@
 					{if $item->sets != 0}sets {$item->sets}{/if}
 					{if $item->reps != 0}reps {$item->reps}{/if}
 					total {$item->sets * $item->reps}
-					{if $item->ledder != '' || $item->ledder != 0}
+					{* TODO: zkontrolovat co ukladam kdyz nevyplnim jestli 0 nebo ''*}
+					{if $item->ledderFrom != ''}
 						Ledder from {$item->ledderFrom} ledder to {$item->ledderTo}
 					{/if}
-					{if $item->moreWeight != '' || $item->ledder != 0}
+					{* TODO: zkontrolovat co ukladam kdyz nevyplnim jestli 0 nebo ''*}
+					{if $item->moreWeightValue != ''}
 						more weight {$item->moreWeightValue} {$item->unitMoreWeight}
 					{/if}
 					{if $item->rest != 0}{$item->rest} {$item->unitRest}{/if}

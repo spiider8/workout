@@ -51,38 +51,23 @@ class NewTrainFormFactory extends Nette\Object
 					$exercisesList = $exerciseModel->getAll()->order('name')->fetchPairs('id', 'name');
 					
 					$exercise->addSelect('exercise', 'Exercise', $exercisesList);
-					$exercise->addCheckbox('ledder', 'Ledder')
-						->addCondition(FORM::EQUAL, TRUE);
-							/*->toggle('ledderFrom-' . $i . '-' . $j)->toggle('ledderTo-' . $i . '-' . $j)
-							->toggle('ledderFromLabel-' . $i . '-' . $j)->toggle('ledderToLabel-' . $i . '-' . $j);*/
-				
-					$exercise->addText('sets', 'Count of sets');
-							/*->addConditionOn($exercise['ledder'], FORM::EQUAL, FALSE)
-								->toggle('sets');*/
-					$exercise->addText('reps', 'Count of reps');
-							/*->addConditionOn($exercise['ledder'], FORM::EQUAL, FALSE)
-								->toggle('reps');*/
+					$exercise->addText('sets', 'sets');
+					$exercise->addText('reps', 'reps');
 					$exercise->addText('rest', 'Rest');
-					$exercise->addSelect('unitRest', 'Rest unit', array(
+					$exercise->addSelect('unitRest', '', array(
 							'min',
 							's',
 						));
-					$exercise->addText('ledderFrom', 'From');
+					$exercise->addText('ledderFrom', 'from');
 					$exercise->addText('ledderTo', 'To');
 					
-					$exercise->addCheckbox('moreWeight', 'More weight')
-							->addCondition(FORM::EQUAL, TRUE);
-								/*->toggle('moreWeightValue-' . $i . '-' . $j)
-								->toggle('moreWeightValueLabel-' . $i . '-' . $j);*/
-					$exercise->addText('moreWeightValue', 'Weight');
+					$exercise->addText('moreWeightValue', 'More Weight');
 					
-					$exercise->addSelect('unitMoreWeight', 'Weight unit', array(
+					$exercise->addSelect('unitMoreWeight', '', array(
 							'Kg',
 							'Lb',
-						))
-							->addConditionOn($exercise['moreWeight'], FORM::EQUAL, TRUE)
-								->toggle('unitMoreWeight-' . $i . '-' . $j)
-								->toggle('unitMoreWeightLabel-' . $i . '-' . $j);
+						));
+					
 					$exercise->addText('hold', 'Hold');
 					$exercise->addSelect('unitHold', '', array(
 							'min',
@@ -150,7 +135,6 @@ class NewTrainFormFactory extends Nette\Object
 					'unitRest' => $exercise->unitRest,
 					'ledderFrom' => $exercise->ledderFrom,
 					'ledderTo' => $exercise->ledderTo,
-					'moreWeight' => $exercise->moreWeight,
 					'moreWeightValue' => $exercise->moreWeightValue,
 					'unitMoreWeight' => $exercise->unitMoreWeight,
 				);
