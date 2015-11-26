@@ -4,7 +4,7 @@
 <article class="trainList" n:foreach="$trains as $train">
 	<p>
 		<a href="#">
-			<span class="date">{$train->dateTrain|date:'%d %m %Y %H%M'}</span>
+			<span class="date">{$train->dateTrain|date:'%d %m %Y'}</span>
 			<span class="title">{$train->name}</span>
 		</a>
 		<a n:href="share" class="share"></a>
@@ -14,27 +14,28 @@
 		{foreach $train->related('blocks.train_id') as $block}
 			<h4>
 				Block {$block->number}
-				{if $block->blockRest != 0}
-					rest {$block->blockRest} {$block->unitBlockRest}
+				{if $block->repsOfBlock > 0}
+					{$block->repsOfBlock}x
 				{/if}
-				{if $block->blockSets != 0}
-					sets {$block->blockSets}
+				{if $block->blockRest > 0}
+					rest {$block->blockRest} {$block->unitBlockRest}
 				{/if}
 			</h4>
 			<ul n:foreach="$block->related('trainItems.block_id') as $item">
 				<li>
 					{$item->ref('exercises', 'exercise_id')->name}
-					{if $item->sets != 0}sets {$item->sets}{/if}
-					{if $item->reps != 0}reps {$item->reps}{/if}
-					total {$item->sets * $item->reps}
-					{* TODO: zkontrolovat co ukladam kdyz nevyplnim jestli 0 nebo ''*}
-					{if $item->ledderFrom != ''}
-						Ledder from {$item->ledderFrom} ledder to {$item->ledderTo}
+					{if $item->sets > 0} {$item->sets}x{/if}
+					{if $item->reps > 0} {$item->reps}x{/if}
+					{if $item->reps > 0 && $item->sets > 0}total {$item->sets * $item->reps}x{/if}
+					
+					{if $item->ledderFrom > 0 && $item->ledderTo > 0}
+						Ledder from {$item->ledderFrom} to {$item->ledderTo}
 					{/if}
-					{if $item->moreWeightValue}
+					{if $item->moreWeightValue > 0}
 						more weight {$item->moreWeightValue} {$item->unitMoreWeight}
 					{/if}
-					{if $item->rest != 0}{$item->rest} {$item->unitRest}{/if}
+					{if $item->hold > 0}hold {$item->hold} {$item->unitHold}{/if}
+					{if $item->rest > 0}rest {$item->rest} {$item->unitRest}{/if}
 				</li>		
 			</ul>
 		{/foreach}

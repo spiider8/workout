@@ -1,1 +1,20 @@
 {block content}
+{control addExerciseForm}
+
+{if $exercises}
+<table>
+	<tr>
+		<td></td>
+		<td>Name</td>
+		<td>Descripton</td>
+	</tr>
+	<tr n:foreach="$exercises as $exercise">
+		<td>{$exercise->id}</td>
+		<td>{$exercise->name}</td>
+		<td>{$exercise->descripton}</td>
+		<td><a n:href="delete id => $exercise->id">delete</a></td>
+	</tr>
+</table>
+{else}
+	<p>You have no your own exercises for now</p>
+{/if}
