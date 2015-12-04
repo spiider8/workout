@@ -13,7 +13,7 @@ class TrainPresenter extends SecuredPresenter
 	public $factory;
 
     /**
-	 * Tovartna pro formular pridani formulare
+	 * Tovarna pro formular pridani formulare
 	 * @return Nette\Application\UI\Form
 	 */
 	protected function createComponentNewTrainForm()
@@ -50,6 +50,23 @@ class TrainPresenter extends SecuredPresenter
 			$this->flashMessage('Train was not deleted', 'error');
 		}
 		$this->redirect('list');
+	}
+
+	public function getSumExerciseByTrain($trainId)
+	{
+		$rows = $this->train->getSumExerciseByTrain($trainId);
+		$items = array();
+		dump($rows);
+		if (in_array('Dips', $rows))
+			echo 'JE TAM';
+		else echo 'NENI TAM';
+		/*foreach ($rows as $row) {
+
+			$items[] = array(
+						'name' => $row
+				);
+		}*/
+		return $rows;
 	}
 
 }

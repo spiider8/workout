@@ -25,6 +25,7 @@ services:
 	- App\Model\TrainItem
 	- App\Forms\SignFormFactory
 	- App\Forms\NewTrainFormFactory
+	- App\Forms\NewExerciseFormFactory
 	router: App\RouterFactory::createRouter
 
 extensions:
