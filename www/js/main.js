@@ -17,6 +17,11 @@ $(function(){
 			top: "50%"
 		});
 	}).hide();
+
+	$("#main #left #menu ul li a.paypal").on("click", function(){
+		$(this).parent('form').submit();
+	});
+
 	// zajaxovatění odkazů provedu takto
 	/*$("input[type=submit].ajax").on("click", function (event) {
 	    event.preventDefault();
@@ -30,4 +35,5 @@ $(function(){
 	        top: event.pageY + 40
 	    });
 	});*/
+	
 });

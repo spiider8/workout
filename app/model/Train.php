@@ -13,7 +13,20 @@ class Train extends BaseModel
 	 */
 	public function addTrain($data)
 	{
-		return $this->database->table($this->table)->insert($data);
+		$trainId = $this->database->table($this->table)->insert($data);
+		if ($this->saveHash($trainId))
+			return $trainId;
+		return FALSE;
+	}
+
+	public function editTrain($data, $id)
+	{
+		return $this->database->table($this->table)->where('id', $id)->update($data);
+	}
+
+	public function getTrainById($trainId)
+	{
+		return $this->database->table($this->table)->where('id', $trainId)->fetch();
 	}
 
 	public function getLastTrainByUser($userId)
@@ -24,6 +37,11 @@ class Train extends BaseModel
 	public function getTrainsByUser($userId)
 	{
 		return $this->database->table($this->table)->where('user_id', $userId)->order('dateCreated DESC')->fetchAll();
+	}
+
+	public function getTrainByHash($hash)
+	{
+		return $this->database->table($this->table)->where('hash', $hash)->fetch();
 	}
 
 	public function deleteTrain($trainId)
@@ -41,18 +59,28 @@ class Train extends BaseModel
 	{
 		return $this->database->query("
 			SELECT
-				e.name,
-				COUNT(i.exercise_id) as exerciseCount,
-				SUM(i.sets * i.reps) as setsRepsSum
+			e.name,
+			IF (i.sets = 0 && i.reps > 0 && i.ledderFrom = 0 && i.ledderTo = 0, SUM(b.repsOfBlock * i.reps),
+			IF (i.sets = 0 && i.reps = 0 && i.ledderFrom > 0 && i.ledderTo > 0, SUM(b.repsOfBlock * IF (i.ledderFrom < i.ledderTo,i.ledderTo * (i.ledderFrom + i.ledderTo) / 2,i.ledderFrom * (i.ledderFrom + i.ledderTo) / 2)),
+			IF (i.sets > 0 && i.reps > 0 && i.ledderFrom = 0 && i.ledderTo = 0, SUM(b.repsOfBlock * i.sets * i.reps),
+			IF (i.sets > 0 && i.reps = 0 && i.ledderFrom > 0 && i.ledderTo > 0, SUM(b.repsOfBlock * i.sets *  IF (i.ledderFrom < i.ledderTo,i.ledderTo * (i.ledderFrom + i.ledderTo) / 2,i.ledderFrom * (i.ledderFrom + i.ledderTo) / 2)),
+			IF (i.sets = 0 && i.reps = 0 && i.ledderFrom = 0 && i.ledderTo = 0, SUM(b.repsOfBlock * i.hold), 1
+			)
+			)
+			)
+			)
+			)
+			as setsRepsSum,
+			i.exercise_id
 			FROM trains t,blocks b, trainitems i, exercises e
 			WHERE t.id = b.train_id
 			AND b.id = i.block_id
 			AND i.exercise_id = e.id
+			AND t.user_id = $userId
 			AND date_format(t.dateTrain, '%Y-%m-%d') 
 			BETWEEN date_format(date_sub(NOW(), INTERVAL $period), '%Y-%m-%d') 
 			AND date_format(NOW(), '%Y-%m-%d')
-			AND t.user_id = $userId
-			GROUP BY (i.exercise_id)
+			GROUP BY i.exercise_id
 			ORDER BY setsRepsSum DESC
 			")->fetchAll();
 	}
@@ -66,15 +94,25 @@ class Train extends BaseModel
 	{
 		return $this->database->query("
 			SELECT
-				e.name,
-				COUNT(i.exercise_id) as exerciseCount,
-				SUM(i.sets * i.reps) as setsRepsSum
+			e.name,
+			IF (i.sets = 0 && i.reps > 0 && i.ledderFrom = 0 && i.ledderTo = 0, SUM(b.repsOfBlock * i.reps),
+			IF (i.sets = 0 && i.reps = 0 && i.ledderFrom > 0 && i.ledderTo > 0, SUM(b.repsOfBlock * IF (i.ledderFrom < i.ledderTo,i.ledderTo * (i.ledderFrom + i.ledderTo) / 2,i.ledderFrom * (i.ledderFrom + i.ledderTo) / 2)),
+			IF (i.sets > 0 && i.reps > 0 && i.ledderFrom = 0 && i.ledderTo = 0, SUM(b.repsOfBlock * i.sets * i.reps),
+			IF (i.sets > 0 && i.reps = 0 && i.ledderFrom > 0 && i.ledderTo > 0, SUM(b.repsOfBlock * i.sets *  IF (i.ledderFrom < i.ledderTo,i.ledderTo * (i.ledderFrom + i.ledderTo) / 2,i.ledderFrom * (i.ledderFrom + i.ledderTo) / 2)),
+			IF (i.sets = 0 && i.reps = 0 && i.ledderFrom = 0 && i.ledderTo = 0, SUM(b.repsOfBlock * i.hold), 1
+			)
+			)
+			)
+			)
+			)
+			as setsRepsSum,
+			i.exercise_id
 			FROM trains t,blocks b, trainitems i, exercises e
 			WHERE t.id = b.train_id
 			AND b.id = i.block_id
 			AND i.exercise_id = e.id
 			AND t.user_id = $userId
-			GROUP BY (i.exercise_id)
+			GROUP BY i.exercise_id
 			ORDER BY setsRepsSum DESC
 			")->fetchAll();
 	}
@@ -89,12 +127,11 @@ class Train extends BaseModel
 		return $this->database->query("
 			SELECT
 			e.name,
-			b.repsOfBlock *
-			IF (i.sets = 0 && i.reps > 0 && i.ledderFrom = 0 && i.ledderTo = 0, SUM(i.reps),
-			IF (i.sets = 0 && i.reps = 0 && i.ledderFrom > 0 && i.ledderTo > 0, SUM(i.ledderTo * (i.ledderFrom + i.ledderTo) / 2),
-			IF (i.sets > 0 && i.reps > 0 && i.ledderFrom = 0 && i.ledderTo = 0, SUM(i.sets * i.reps),
-			IF (i.sets > 0 && i.reps = 0 && i.ledderFrom > 0 && i.ledderTo > 0, SUM(i.sets * (i.ledderTo * (i.ledderFrom + i.ledderTo) / 2)),
-			IF (i.sets = 0 && i.reps = 0 && i.ledderFrom = 0 && i.ledderTo = 0, SUM(i.hold), 1
+			IF (i.sets = 0 && i.reps > 0 && i.ledderFrom = 0 && i.ledderTo = 0, SUM(b.repsOfBlock * i.reps),
+			IF (i.sets = 0 && i.reps = 0 && i.ledderFrom > 0 && i.ledderTo > 0, SUM(b.repsOfBlock * IF (i.ledderFrom < i.ledderTo,i.ledderTo * (i.ledderFrom + i.ledderTo) / 2,i.ledderFrom * (i.ledderFrom + i.ledderTo) / 2)),
+			IF (i.sets > 0 && i.reps > 0 && i.ledderFrom = 0 && i.ledderTo = 0, SUM(b.repsOfBlock * i.sets * i.reps),
+			IF (i.sets > 0 && i.reps = 0 && i.ledderFrom > 0 && i.ledderTo > 0, SUM(b.repsOfBlock * i.sets *  IF (i.ledderFrom < i.ledderTo,i.ledderTo * (i.ledderFrom + i.ledderTo) / 2,i.ledderFrom * (i.ledderFrom + i.ledderTo) / 2)),
+			IF (i.sets = 0 && i.reps = 0 && i.ledderFrom = 0 && i.ledderTo = 0, SUM(b.repsOfBlock * i.hold), 1
 			)
 			)
 			)
@@ -107,9 +144,23 @@ class Train extends BaseModel
 			AND b.id = i.block_id
 			AND i.exercise_id = e.id
 			AND t.id = $trainId
-			GROUP BY i.exercise_id, i.block_id
+			GROUP BY i.exercise_id
 			ORDER BY setsRepsSum DESC
 		")->fetchAll();
+
+	}
+
+	public function saveHash($trainId) {
+		return $this->database->table($this->table)->where('id', $trainId)->update(array(
+				'hash' => sha1($trainId . date('YmdHis') . 'fWe8X23ksdLoiweJ#qwfe'),
+			));
+	}
+
+	public function updateShare($trainId)
+	{
+		return $this->database->table($this->table)->where('id', $trainId)->update(array(
+				'isShare' => 1,
+			));
 	}
 	
 }

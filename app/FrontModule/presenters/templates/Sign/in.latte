@@ -10,13 +10,15 @@
 			<span class="labelPassword">{label password /}</span>
 			<span class="inputPassword">{input password}</span>
 		</div>
-		<div class="remeber">
+		<div class="remember">
 			<span class="labelRemember">{label remember /}</span>
 			<span class="inputRemember">{input remember}</span>
 		</div>
-		<div class="signIn">{input send class => 'box'}</div>
+		<div class="signIn">
+			{input send class => 'box'}
+			<a class="box fcbLogin button" n:href="fbLogin-open!">Login by facebook</a>
+		</div>
 	{/form}
 
-	<a class="box fcbLogin" n:href="fbLogin-open!">Login using facebook</a>
 {/if}
 {* or use {include '../components/form.latte', form => signInForm} *}

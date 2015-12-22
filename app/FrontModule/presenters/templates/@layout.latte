@@ -7,6 +7,18 @@
 <html>
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<meta property="og:title" content="Manage your own workout - statistics, results, trains..." />
+	<meta property="og:site_name" content="Manage workout"/>
+	<meta property="og:url" content="http://www.manage-workout.com/test/www/" />
+	<meta property="og:type" content="website" />
+	<meta property="og:description" content="Manage workout is an application for managing your trains.
+	 You can create your training plan, sharing it with friends, check statistics and a lot other stuff.
+	 And the best of all is....ITS FREE and ITS FOR YOU" />
+	<meta property="og:image" content="http://manage-workout.com/test/www/images/fcbImage.png" />
+	<meta property="fb:app_id" content="538326589664470" />
+	<!--<meta name="robots" content="index, follow" />-->
 
 	<title>{ifset title}{include title|striptags} | {/ifset} Manage workout</title>
 
@@ -14,7 +26,8 @@
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
   
-	<meta name="viewport" content="width=device-width">
+
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	{block head}{/block}
 </head>
 
@@ -39,9 +52,7 @@
 								<input type="hidden" name="cmd" value="_s-xclick">
 								<input type="hidden" name="hosted_button_id" value="7PK2WNR8QNB64">
 								<a href="#" class="paypal" alt="PayPal - The safer, easier way to pay online!" title="PayPal - The safer, easier way to pay online!">Donate</a>
-								<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 							</form>
-
 						</li>
 						<li><a href="Help:">Help</a></li>
 						<li><a href="About:">About</a></li>
@@ -50,13 +61,14 @@
 			</aside>
 		</section>
 		<section id="right">
-			<h1><a n:href="Homepage:">my workout</a></h1>
-			<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-				{include content}
+			<h1><a n:href="Homepage:">manage workout</a></h1>
+			<div class="content box">
+				<div n:foreach="$flashes as $flash" n:class="box, message, $flash->type">{$flash->message}</div>
+					{include content}
+			</div>
 		</section>
 	</div>
 	{block scripts}
-		<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		<script src="{$basePath}/js/modernizr-custom.js"></script>
 		<script src="//nette.github.io/resources/js/netteForms.min.js"></script>

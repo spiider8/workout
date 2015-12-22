@@ -95,6 +95,7 @@ class UserManager extends Nette\Object implements Nette\Security\IAuthenticator
 					self::COLUMN_FCB_ID => $fcbId,
 					self::COLUMN_CREATED => date('Y-m-d H:i:s'),
 					self::COLUMN_FULLNAME => $userInfo->name,
+					self::COLUMN_ID => $userInfo->email,
 				));
 	}
 

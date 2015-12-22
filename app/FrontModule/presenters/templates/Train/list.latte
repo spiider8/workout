@@ -7,8 +7,9 @@
 			<span class="date">{$train->dateTrain|date:'%d %m %Y'}</span>
 			<span class="title">{$train->name}</span>
 		</a>
-		<a n:href="share" class="share"></a>
+		<a href="#" id="{$train->id}" class="share" rel="{$train->hash}"></a>
 		<a onclick="return confirm('Train will be delete. Are you sure?')" n:href="delete trainId => $train->id" class="trash"></a>
+		<a n:href="edit id => $train->id">edit</a>
 	</p>
 	<div class="trainContent hide">
 		{foreach $train->related('blocks.train_id') as $block}
@@ -37,7 +38,11 @@
 					{if $item->ledderFrom > 0 && $item->ledderTo > 0}
 						Ledder from {$item->ledderFrom} to {$item->ledderTo}
 						{if $block->repsOfBlock > 1}{var $ledderTotal *= $block->repsOfBlock}{/if}
-						total {$item->ledderTo * ($item->ledderFrom + $item->ledderTo) / 2}x
+						{if $item->ledderFrom < $item->ledderTo}
+							total {$block->repsOfBlock * $item->ledderTo * ($item->ledderFrom + $item->ledderTo) / 2}x
+						{else}
+							total {$block->repsOfBlock * $item->ledderFrom * ($item->ledderFrom + $item->ledderTo) / 2}x
+						{/if}
 					{/if}
 					{if $item->moreWeightValue > 0}
 						more weight {$item->moreWeightValue} {$item->unitMoreWeight}
@@ -56,4 +61,32 @@
 		</ul>
 	</div>
 </article>
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '538326589664470',
+      xfbml      : true,
+      version    : 'v2.5'
+    });
+    
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {l}return;{r}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+	$(".trainList p .share").on("click", function(){
+		var hash = $(this).attr('rel');
+		var url = 'http://manage-workout.com/test/www/train/view/?hash=' + hash;
+		var id = $(this).attr('id');
+		FB.ui({
+  method: 'share',
+  href: url,
+}, function(response){});
+	});
+</script>
 

@@ -26,6 +26,89 @@ class TrainPresenter extends SecuredPresenter
 		return $form;
 	}
 
+	public function actionEdit($id)
+	{
+		$form = $this['newTrainForm'];
+		
+		if ($form->isSubmitted() && $form->submitted->name == 'saveTrain') {
+			$values = $form->getValues();
+			$trainData = array(
+				'user_id' => $this->user->getId(),
+				'name' => $values->name,
+				'dateCreated' => date('Y-m-d H:i:s'),
+				'dateTrain' => date('Y-m-d', strtotime(str_replace(' ', '-', $values->dateTrain))),
+			);
+			$trainId = $this->train->addTrain($trainData);
+
+			foreach($values->blocks as $bkey => $block) {
+			
+				$blockData = array(
+						'train_id' => $trainId,
+						'number' => $bkey + 1,
+						'blockRest' => $block->blockRest,
+						'unitBlockRest' => $block->unitBlockRest,
+						'repsOfBlock' => $block->repsOfBlock < 1 ? 1 : $block->repsOfBlock,
+					);
+				$blockId = $this->block->addBlock($blockData);
+				foreach($block->exercises as $ekey => $exercise) {
+					$exercisesData = array(
+						'block_id' => $blockId,
+						'exercise_id' => $exercise->exercise,
+						'sets' => $exercise->sets,
+						'reps' => $exercise->reps,
+						'rest' => $exercise->rest,
+						'unitRest' => $exercise->unitRest,
+						'ledderFrom' => $exercise->ledderFrom,
+						'ledderTo' => $exercise->ledderTo,
+						'moreWeightValue' => $exercise->moreWeightValue,
+						'unitMoreWeight' => $exercise->unitMoreWeight,
+						'hold' => $exercise->hold,
+						'unitHold' => $exercise->unitHold,
+					);
+					$this->trainItem->addItem($exercisesData);
+				}
+			}
+			if ($this->train->deleteTrain($id)) {
+				$this->flashMessage('Train was updated', 'success');
+			}
+			else {
+				$this->flashMessage('Train was not updated', 'error');
+			}
+			
+			$this->redirect('list');
+		}
+		else {
+			$blocks = $this->block->getBlocksByTrain($id);
+			$i = 0;
+			foreach ($blocks as $block) {
+        		$items = $this->trainItem->getItemsByBlock($block->id);
+        		$form['blocks'][$i]->setValues($block);
+        		$j = 0;
+
+        		foreach ($items as $item) {
+        			$exercise = $item->exercise;
+        			$sets = $item->sets;
+        			$reps = $item->exercise;
+        			$rest = $item->exercise;
+        			$ledderFrom = $item->exercise;
+        			$ledderTo = $item->exercise;
+        			$weight = $item->exercise;
+        			$hold = $item->exercise;
+        			$form['blocks'][$i]['exercises'][$j]->setValues($item);
+        			$form['blocks'][$i]['exercises'][$j]['exercise']->setValue($item->exercise);
+					$j++;
+				} 
+				$i++;
+			}
+			
+			$train = $this->train->getTrainById($id);
+			$form->setValues($train);
+
+			
+		}
+
+	}
+
 	public function renderDefault()
 	{
 		$this->template->lastTrain = $this->train->getLastTrainByUser($this->user->getId());
@@ -54,19 +137,22 @@ class TrainPresenter extends SecuredPresenter
 
 	public function getSumExerciseByTrain($trainId)
 	{
-		$rows = $this->train->getSumExerciseByTrain($trainId);
-		$items = array();
-		dump($rows);
-		if (in_array('Dips', $rows))
-			echo 'JE TAM';
-		else echo 'NENI TAM';
-		/*foreach ($rows as $row) {
+		return $this->train->getSumExerciseByTrain($trainId);
+	}
 
-			$items[] = array(
-						'name' => $row
-				);
-		}*/
-		return $rows;
+	public function actionView($hash)
+	{
+		if (!$hash)
+			$this->redirect('Sign:in');
+		$this->template->train = $this->train->getTrainByHash($hash);
+		$this->setLayout(false);
+		
+		
+	}
+
+	public function updateShare($trainId)
+	{
+		return $this->train->updateShare($trainId);
 	}
 
 }

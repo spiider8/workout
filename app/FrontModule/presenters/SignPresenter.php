@@ -39,8 +39,7 @@ class SignPresenter extends BasePresenter
             }
 
             try {
-                $me = $fb->api('/me');
-                
+                $me = $fb->api('/me', NULL, ['fields' => ['id','first_name','last_name','picture','email']]);
                 if (!$existing = $this->usersModel->findByFacebookId($fb->getUser())) {
                     $existing = $this->usersModel->registerFromFacebook($fb->getUser(), $me);
                 }

@@ -22,4 +22,5 @@ abstract class BasePresenter extends \Nette\Application\UI\Presenter
 
 	/** @var \App\Model\TrainItem @inject */
 	public $trainItem;
+
 }

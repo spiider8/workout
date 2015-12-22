@@ -54,24 +54,39 @@ class NewTrainFormFactory extends Nette\Object
 					$exercisesList = $exerciseModel->getAll($userId)->fetchPairs('id', 'name');
 					
 					$exercise->addSelect('exercise', 'Exercise', $exercisesList);
-					$exercise->addText('sets', 'sets');
-					$exercise->addText('reps', 'reps');
-					$exercise->addText('rest', 'Rest');
+					$exercise->addText('sets', 'sets')
+						->addCondition(FORM::FILLED)
+							->addRule(FORM::NUMERIC, 'Sets has to be a number');
+
+					$exercise->addText('reps', 'reps')
+						->addCondition(FORM::FILLED)
+							->addRule(FORM::NUMERIC, 'Reps has to be a number');
+					$exercise->addText('rest', 'Rest')
+						->addCondition(FORM::FILLED)
+							->addRule(FORM::NUMERIC, 'Rest has to be a number');
 					$exercise->addSelect('unitRest', '', array(
 							'min' => 'min',
 							's' => 's',
 						));
-					$exercise->addText('ledderFrom', 'from');
-					$exercise->addText('ledderTo', 'To');
+					$exercise->addText('ledderFrom', 'from')
+						->addCondition(FORM::FILLED)
+							->addRule(FORM::NUMERIC, 'Ledder from has to be a number');
+					$exercise->addText('ledderTo', 'To')
+						->addCondition(FORM::FILLED)
+							->addRule(FORM::NUMERIC, 'Ledder to has to be a number');;
 					
-					$exercise->addText('moreWeightValue', 'More Weight');
+					$exercise->addText('moreWeightValue', 'More Weight')
+						->addCondition(FORM::FILLED)
+							->addRule(FORM::NUMERIC, 'More weight has to be a number');
 					
 					$exercise->addSelect('unitMoreWeight', '', array(
 							'Kg' => 'Kg',
 							'Lb' => 'Kg',
 						));
 					
-					$exercise->addText('hold', 'Hold');
+					$exercise->addText('hold', 'Hold')
+						->addCondition(FORM::FILLED)
+							->addRule(FORM::NUMERIC, 'Hold has to be a number');
 					$exercise->addSelect('unitHold', '', array(
 							's' => 's',
 							'min' => 'min',
@@ -84,14 +99,16 @@ class NewTrainFormFactory extends Nette\Object
 				$exercises->addSubmit('addExercise', 'Add exercise')->setValidationScope(FALSE)
 					->addCreateOnClick($invalidateCallback)->setAttribute('class', 'ajax box');
 				
-				$block->addText('blockRest', 'Rest after block');
+				$block->addText('blockRest', 'Rest after block')
+					->addCondition(FORM::FILLED)
+						->addRule(FORM::NUMERIC, 'Rest after block has to be a number');
 				$block->addSelect('unitBlockRest', 'Unit block rest', array(
 							'min' => 'min',
 							's' => 's',
 						));
-				$block->addText('repsOfBlock', 'Reps of block')
-						->setValue(1);
-		
+				$block->addText('repsOfBlock', 'Reps of block')->setValue(1)
+					->addCondition(FORM::FILLED)
+						->addRule(FORM::NUMERIC, 'Reps of block has to be a number');
 				$block->addSubmit('removeBlock', '')
 					->addRemoveOnClick($invalidateCallback);
 				$i++;
