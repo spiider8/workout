@@ -1,0 +1,67 @@
+{block content}
+{include '../submenu.latte'}
+<h2 n:block=title>Edit train</h2>
+{snippet blocks}
+{form newTrainForm}
+	<ul class="errors" n:if="$form->hasErrors()">
+        <li n:foreach="$form->errors as $error">{$error}</li>
+	</ul>
+	<div class="trainData">
+		<span>{label name /}</span>
+		<span>{input name class}</span>
+		<span>{label dateTrain /}</span>
+		<span>{input dateTrain}</span>
+	</div>
+
+	{foreach $form['blocks']->containers as $bkey => $block}
+		<article class="block">
+			<div class="exercise">
+				<div class="header">
+					<span>Block {$bkey + 1}</span>
+					<span>{label blocks-$bkey-blockRest /}{input blocks-$bkey-blockRest} {input blocks-$bkey-unitBlockRest class=>'unitBlockRestList'}</span>
+					<span>{label blocks-$bkey-repsOfBlock /}{input blocks-$bkey-repsOfBlock}</span>
+					<span n:if="!$iterator->first">{input blocks-$bkey-removeBlock class=>'trash ajax'}</span>
+				</div>
+				
+				{foreach $block['exercises']->containers as $ekey => $exercise}
+					<div class="labels" n:if="$iterator->first">
+						<span class="exercise">{label blocks-$bkey-exercises-$ekey-exercise /}</span>
+						<span class="sets">{label blocks-$bkey-exercises-$ekey-sets /}</span>
+						<span class="reps">{label blocks-$bkey-exercises-$ekey-reps /}</span>
+						<span class="rest">{label blocks-$bkey-exercises-$ekey-rest /}</span>
+						<span class="unitRest">{label blocks-$bkey-exercises-$ekey-unitRest /}</span>
+						<span class="ledder">ledder</span>
+						<span class="ledderFrom">{label blocks-$bkey-exercises-$ekey-ledderFrom /}</span>
+						<span class="ledderTo">{label blocks-$bkey-exercises-$ekey-ledderTo /}</span>
+						<span class="moreWeightValue" id="moreWeightValueLabel-{$bkey}-{$ekey}">{label blocks-$bkey-exercises-$ekey-moreWeightValue /}</span>
+						<span class="unitMoreWeight" id="unitMoreWeightLabel-{$bkey}-{$ekey}">{label blocks-$bkey-exercises-$ekey-unitMoreWeight /}</span>
+						<span class="hold">{label blocks-$bkey-exercises-$ekey-hold /}</span>
+						<span class="unitHold">{label blocks-$bkey-exercises-$ekey-unitHold /}</span>
+						<span class="removeExercise">{label blocks-$bkey-exercises-$ekey-removeExercise /}</span>
+						<span></span>
+					</div>
+					<div class="inputs">
+						<span>{input blocks-$bkey-exercises-$ekey-exercise class=>'exerciseList'}</span>
+						<span>{input blocks-$bkey-exercises-$ekey-sets}</span>
+						<span>{input blocks-$bkey-exercises-$ekey-reps}</span>
+						<span>{input blocks-$bkey-exercises-$ekey-rest}</span>
+						<span>{input blocks-$bkey-exercises-$ekey-unitRest class=>'unitRestList'}</span>
+						<span id="ledderFrom-{$bkey}-{$ekey}">{input blocks-$bkey-exercises-$ekey-ledderFrom}</span>
+						<span id="ledderTo-{$bkey}-{$ekey}">{input blocks-$bkey-exercises-$ekey-ledderTo}</span>
+						<span id="moreWeightValue-{$bkey}-{$ekey}">{input blocks-$bkey-exercises-$ekey-moreWeightValue}</span>
+						<span id="unitMoreWeight-{$bkey}-{$ekey}">{input blocks-$bkey-exercises-$ekey-unitMoreWeight class=>'unitMoreWeightList'}</span>
+						<span>{input blocks-$bkey-exercises-$ekey-hold}</span>
+						<span>{input blocks-$bkey-exercises-$ekey-unitHold class=>'unitHoldList'}</span>
+						<span>{input blocks-$bkey-exercises-$ekey-removeExercise class=>'trash ajax'}</span>
+					</div>
+				{/foreach}
+				<span class="addExercise">{input blocks-$bkey-exercises-addExercise}</span>
+			</div>
+		</article>
+	{/foreach}
+	<div class="blockTrainBtn">
+		{input blocks-addBlock}
+		{input saveTrain}
+	</div>
+{/form}
+{/snippet}
