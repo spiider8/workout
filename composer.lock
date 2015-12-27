@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "045f2afe114ea5dcfa24254e3335a466",
-    "content-hash": "52e2263c6cae9873f88213766befd59d",
+    "hash": "b84dadca1e05cb6fa2de08a255480ee5",
+    "content-hash": "d62f5f0f38235712681b9aab3e02d169",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -1212,6 +1212,48 @@
             "description": "Nette Utility Classes",
             "homepage": "https://nette.org",
             "time": "2015-10-05 12:18:24"
+        },
+        {
+            "name": "radekdostal/nette-imageselectbox",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/radekdostal/Nette-ImageSelectBox.git",
+                "reference": "1f3dc41ebde0e08c229d4206c55b64292ddd3dd9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/radekdostal/Nette-ImageSelectBox/zipball/1f3dc41ebde0e08c229d4206c55b64292ddd3dd9",
+                "reference": "1f3dc41ebde0e08c229d4206c55b64292ddd3dd9",
+                "shasum": ""
+            },
+            "require": {
+                "nette/forms": "^2.2.0",
+                "nette/utils": "^2.2.0",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "tracy/tracy": "^2.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1",
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Radek Dostál",
+                    "email": "radek.dostal@gmail.com"
+                }
+            ],
+            "description": "ImageSelectBox Input Control for Nette Framework",
+            "time": "2015-10-20 19:41:19"
         },
         {
             "name": "tracy/tracy",

@@ -278,8 +278,8 @@ a[href^="#error:"] {
 
 #main #right .statistics .weekly {
 	float: left;
-	margin-right: 85px;
-	width: 380px;
+	margin-right: 10px;
+	width: 289px;
 	margin-bottom: 25px;
 }
 
@@ -291,12 +291,12 @@ a[href^="#error:"] {
 
 #main #right .statistics .monthly {
 	float: left;
-	width: 380px;
+	width: 289px;
 }
 
 #main #right .statistics .total {
 	clear: both;
-	width: 879px
+	width: 622px
 }
 
 #main #right .content {
@@ -329,7 +329,7 @@ a[href^="#error:"] {
 }
 
 #main #right .trainList {
-	width: 760px;
+	width: 655px;
 }
 
 #main #right .trainList p {

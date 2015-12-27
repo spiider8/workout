@@ -19,6 +19,7 @@ $configurator->addConfig(__DIR__ . '/config/config.neon');
 $configurator->addConfig(__DIR__ . '/config/config.local.neon');
 
 Kdyby\Replicator\Container::register();
+RadekDostal\NetteComponents\ImageSelectBox::register();
 
 $container = $configurator->createContainer();
 

@@ -33,7 +33,8 @@
 		"tracy/tracy": "~2.3.0",
 		"dg/adminer-custom": "~1.6",
 		"kdyby/facebook": "~1.1",
-		"kdyby/forms-replicator": "@dev"
+		"kdyby/forms-replicator": "@dev",
+		"radekdostal/nette-imageselectbox": "^1.2"
 	},
 	"require-dev": {
 		"nette/tester": "~1.3"
